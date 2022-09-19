@@ -12,13 +12,16 @@ router.get('/', (req, res) => {
 
 
 // Catch Eazy.im Message event
-router.post('/catch-message', (req,res) => {
-  console.log('post /catch-message api ran !')
-  res.json('post /catch-message running!')
-})
 router.get('/catch-message', (req,res) => {
   console.log('get /catch-message api ran !')
   res.json('get /catch-message running!')
+
+  res.json({
+    status: 'A New Message Received!',
+    body: req.body,
+    query: req.query,
+    params: req.params
+  })
 })
 
 

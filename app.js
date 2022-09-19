@@ -15,15 +15,6 @@ app.post('/', (req,res) => {
 
 
 
-// Catch Eazy.im Message event
-app.post('/catch-message', (req,res) => {
-    console.log('/catch-message api ran !')
-    res.json('/catch-message running!')
-})
-app.get('/catch-message', (req,res) => {
-    console.log('/catch-message api ran !')
-    res.json('/catch-message running!')
-})
 
 
 app.listen(port,() => {
