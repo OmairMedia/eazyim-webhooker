@@ -6,16 +6,21 @@ const app = express();
 const port = 5000;
 
 
+app.get('/', (req,res) => {
+    res.json('running!')
+})
 app.post('/', (req,res) => {
     res.json('running!')
 })
 
 
 
-
-
 // Catch Eazy.im Message event
 app.post('/catch-message', (req,res) => {
+    console.log('/catch-message api ran !')
+    res.json('/catch-message running!')
+})
+app.get('/catch-message', (req,res) => {
     console.log('/catch-message api ran !')
     res.json('/catch-message running!')
 })
