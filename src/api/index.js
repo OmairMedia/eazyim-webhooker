@@ -18,13 +18,15 @@ router.get('/catch-message', (req,res) => {
   let params = req.params;
 
   console.log('get /catch-message api ran!')
+  let data = {
+    body: body,
+    query: query,
+    params: params
+  };
+  console.log('new message catched -> ',data)
   res.json({
     status: 'A New Message Received!',
-    data: {
-      body: body,
-      query: query,
-      params: params
-    }
+    data: data
   })
 })
 
