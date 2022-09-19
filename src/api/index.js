@@ -18,8 +18,6 @@ router.get('/catch-message', (req,res) => {
   let params = req.params;
 
   console.log('get /catch-message api ran !')
-  res.json('get /catch-message running!')
-
   res.json({
     status: 'A New Message Received!',
     data: {
