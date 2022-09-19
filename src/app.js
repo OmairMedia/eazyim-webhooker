@@ -21,6 +21,26 @@ app.get('/', (req, res) => {
   });
 });
 
+
+// Catch Eazy.im Message event
+app.get('/catch-message', (req,res) => {
+  let body = req.body;
+  let query = req.query;
+  let params = req.params;
+
+  console.log('get /catch-message api ran!')
+  let data = {
+    body: body,
+    query: query,
+    params: params
+  };
+  console.log('new message catched -> ',data)
+  res.json({
+    status: 'A New Message Received!',
+    data: data
+  })
+})
+
 app.use('/api/v1', api);
 
 app.use(middlewares.notFound);
