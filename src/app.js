@@ -8,6 +8,21 @@ var NameGenerator = require('nodejs-randomnames');
 const middlewares = require('./middlewares');
 const app = express();
 
+
+
+const admin = require("firebase-admin");
+
+const serviceAccount = require("../serviceAccount.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://vue-firebase-a0ed3.firebaseio.com"
+});
+
+const db = admin.database();
+
+
+
 app.use(morgan('dev'));
 app.use(helmet());
 app.use(cors());
@@ -49,6 +64,11 @@ app.post('/catch-message', (req,res) => {
   let body = req.body;
   let query = req.query;
   let params = req.params;
+
+  let eazyMessageRef = db.ref('eazy').push();
+  eazyMessageRef.set(body).catch((err) => {
+    console.log('err -> ',err)
+  })
 
   try {
     console.log('post /catch-message api ran ! ================================')
