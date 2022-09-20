@@ -34,7 +34,7 @@ let read_extension_phone_number = async () => {
             }
         } catch(e) {
             console.log(e.message)
-            process.exit(1)
+         
         }
 }
 
@@ -49,7 +49,7 @@ let send_sms = async (fromNumber) => {
             console.log("SMS sent. Message status: " + jsonObj.messageStatus)
         } catch(e) {
             console.log(e.message)
-            process.exit(1)
+            
         }
 }
 
