@@ -17,6 +17,7 @@ platform.login({
 
 platform.on(platform.events.loginSuccess, async function(e){
     // read_extension_phone_number()
+    get_teams()
 });
 
 
@@ -52,6 +53,71 @@ let send_sms = async (fromNumber) => {
             
         }
 }
+
+let get_messages = async () => {
+    try {
+        var resp = await platform.post('/restapi/v1.0/glip/chats/chatId/posts', {
+            from: {'phoneNumber': fromNumber},
+            to: [{'phoneNumber': RECIPIENT}],
+            text: 'Hello World from JavaScript'
+        })
+        var jsonObj = await resp.json()
+        console.log("SMS sent. Message status: " + jsonObj.messageStatus)
+    } catch(e) {
+        console.log(e.message)
+        
+    }
+}
+
+let get_teams = async () => {
+    try {
+        var resp = await platform.get(`/restapi/v1.0/glip/chats?type=Team&recordCount=100`)
+        var jsonObj = await resp.json()
+        console.log("Get Teams: ",jsonObj.records)
+        if(jsonObj.records) {
+            let allTeamIds = jsonObj.records.map(x => x.id)
+            console.log('allTeamIds -> ',allTeamIds);
+            
+            allTeamIds.map(async (id) => {
+                // await get_posts(id)
+            })
+            // Get All Chats From Here
+
+
+        }
+
+    } catch(e) {
+        console.log(e)
+    }
+}
+
+let create_new_conversation = async (user) => {
+    var resp = await platform.post(`/restapi/v1.0/glip/conversations`, {
+        members: [{id: ''},{email:''}]
+    })
+    var jsonObj = await resp.json();
+}
+
+let get_conversations = async (user) => {
+    var resp = await platform.get(`/restapi/v1.0/glip/conversations?recordCount=50`)
+    var jsonObj = await resp.json();
+}
+
+let get_posts = async (chatId) => {
+    var resp = await platform.get(`/restapi/v1.0/glip/chats/${chatId}/posts?recordCount=50`)
+    var jsonObj = await resp.json();
+    console.log('Posts -> ',jsonObj)
+}
+
+
+let create_posts = async (chatId) => {
+    var resp = await platform.post(`/restapi/v1.0/glip/chats/${chatId}/posts`,{
+        text: "Dummy Text"
+    })
+    var jsonObj = await resp.json();
+    console.log('Posts -> ',jsonObj)
+}
+
 
 
 module.exports = {
@@ -109,7 +175,7 @@ module.exports = {
         } catch (e) {
           console.log(e)
         }
-      }
+    }
 }
 
 
